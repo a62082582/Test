@@ -10,4 +10,5 @@
 }
 button {
   margin: 20rpx;
+  display: block;
 }
