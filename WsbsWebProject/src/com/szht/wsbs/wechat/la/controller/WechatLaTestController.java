@@ -5,12 +5,20 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.szht.wsbs.wechat.la.util.Constants;
 
 import net.sf.json.JSONObject;
 
@@ -35,16 +43,42 @@ public class WechatLaTestController {
 		return map;
 	}
 	
+	/**
+	 * 获取openid
+	 * @param requestJson
+	 * @return
+	 */
 	@RequestMapping("wsbsNsrxxDetailAction_getOpenId.do")
 	@ResponseBody
 	public Map<String, String> getOpenId(@RequestBody JSONObject requestJson) {
 		String code = requestJson.getString("code");
 		
-		System.out.println(requestJson);
-		
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("code", code);
-		map.put("openid", "");
+		try
+		{
+			System.out.println(requestJson);
+			
+			String requestUrl = Constants.GET_OPENID_URL.replace("APPID", Constants.APPID)
+					.replace("APPSECRET" , Constants.SECRET).replace("CODE" , code);
+			HttpClient client = new DefaultHttpClient();
+			HttpGet get = new HttpGet(requestUrl);
+			HttpResponse res = client.execute(get);
+			String responseContent = null; // 响应内容
+			HttpEntity entity = res.getEntity();
+			responseContent = EntityUtils.toString(entity, "UTF-8");
+			JSONObject jsonObject = JSONObject.fromObject(responseContent);
+			
+			String openid = jsonObject.getString("openid");
+			System.out.println("openid = " + openid);
+			
+			map.put("code", code);
+			map.put("openid", openid);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return map;
 	}
 	
@@ -103,7 +137,7 @@ public class WechatLaTestController {
 	}
 	
 	/**
-	 * 保存身份证影响
+	 * 保存身份证影像
 	 * @param requestJson
 	 * @return
 	 */
@@ -119,6 +153,32 @@ public class WechatLaTestController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("nsrsbh", nsrsbh);
 		map.put("code", "00");
+		return map;
+	}
+	
+	/**
+	 * 查询绑定微信用户信息
+	 * @param requestJson
+	 * @return
+	 */
+	@RequestMapping("wsbsNsrxxDetailAction_viewBindNsrxx.do")
+	@ResponseBody
+	public Map<String, String> viewBindNsrxx(@RequestBody JSONObject requestJson) {
+		
+		String nsrsbh = requestJson.getString("nsrsbh");
+		
+		System.out.println("wsbsNsrxxDetailAction_viewBindNsrxx : " + requestJson);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("unionid", "");
+		map.put("openid", "123456");
+		map.put("openidType", "1");
+		map.put("nsrsbh", nsrsbh);
+		map.put("nick", "test_nickname");
+		map.put("sjhm", "13012345678");
+		map.put("nsrType", "0");
+		map.put("sfzhm", "120101190001011234");
+		map.put("nsrmc", "test_nsrmc");
 		return map;
 	}
 	
