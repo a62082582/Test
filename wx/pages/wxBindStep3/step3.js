@@ -4,7 +4,8 @@ Page({
   },
   onLoad: function(option){
     this.setData({
-      nsrsbh : option.nsrsbh
+      nsrsbh : option.nsrsbh,
+      openid : option.openid
     })
     // console.log(this.data.sz)
   },
@@ -41,7 +42,7 @@ Page({
       filePath: that.data.imagePath[0],
       name: 'sfzfile',
       formData:{
-        openid : 'key.target.id',
+        openid : that.data.openid,
         nsrsbh : that.data.nsrsbh,
         openidType : '1'
       },

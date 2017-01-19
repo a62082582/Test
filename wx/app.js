@@ -1,5 +1,6 @@
 //app.js
 App({
+  openid:'',
   onLaunch: function () {
     //调用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || []
@@ -9,7 +10,8 @@ App({
       success: function(res) {
         if (res.code) {
           //发起网络请求
-          console.log('111' + res.code)
+          // console.log('111' + res.code)
+          this.openid = res.code
         } else {
           console.log('获取用户登录态失败！' + res.errMsg)
         }

@@ -3,8 +3,48 @@ Page({
     switch:{switch:true}
   },
   bind: function() {
-    wx.navigateTo({
-      url: "../wxBindStep1/step1"
+    wx.scanCode({
+      fail: (res) => {
+        var nsrsbh = '120103103064277'
+        var sessionId = 'sessionId'
+        var time = '20170117152542'
+        wx.request({
+          url: 'http://127.0.0.1:8080/weixinMVC/test/checkNsr.do', //仅为示例，并非真实的接口地址
+          data: {
+            nsrsbh: nsrsbh ,
+            sessionId: sessionId,
+            time : time
+          },
+          header: {
+              'content-type': 'application/json'
+          },
+          //method:'POST',
+          success: function(res) {
+            var temp = res.data
+            if(temp.code == '00'){
+              if(temp.step == '0'){
+                wx.navigateTo({
+                  url: '../wxBindStep1/step1?nsrsbh='+temp.nsrsbh+'&nsrmc='+temp.nsrmc
+                })
+              }else if(temp.step == '2'){
+                wx.navigateTo({
+                  url: '../nsrInfoShow/show?nsrsbh='+temp.nsrsbh+'&openid='+'openid'
+                })
+              }else if(temp.step == '1'){
+                wx.navigateTo({
+                  url: '../wxBindStep3/step3?nsrsbh='+temp.nsrsbh+'&openid='+'openid'
+                })
+              }
+            }else{
+              wx.showToast({
+                title: '二维码已失效',
+                icon: 'success',
+                duration: 4000
+              })
+            }
+          }
+        })
+      }
     })
   },
   formSubmit: function(e) {
