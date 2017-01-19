@@ -20,7 +20,7 @@ public class WechatLaTestController {
 	/**
 	 *  获取纳税人信息
 	 */
-	@RequestMapping("getNsrglxx.do")
+	@RequestMapping("wsbsNsrxxDetailAction_checkCode.do")
 	@ResponseBody
 	public Map<String, String> getNsrglxx(@RequestBody JSONObject requestJson) {
 		String nsrsbh = requestJson.getString("nsrsbh");
@@ -32,6 +32,19 @@ public class WechatLaTestController {
 		map.put("nsrmc", "测试名称");
 		map.put("step", "0");
 		map.put("code", "00");
+		return map;
+	}
+	
+	@RequestMapping("wsbsNsrxxDetailAction_getOpenId.do")
+	@ResponseBody
+	public Map<String, String> getOpenId(@RequestBody JSONObject requestJson) {
+		String code = requestJson.getString("code");
+		
+		System.out.println(requestJson);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("code", code);
+		map.put("openid", "");
 		return map;
 	}
 	
