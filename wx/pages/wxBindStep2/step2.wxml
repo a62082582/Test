@@ -1,0 +1,14 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view name='nsrsbh' style="margin:20rpx">纳税人识别号：{{nsrsbh}}</view>
+  <view name='nsrmc' style="margin:20rpx">纳税人名称：{{nsrmc}}</view>
+  <input name='xm' type="text" placeholder="请输入姓名" style="margin:20rpx"/>
+  <picker name='nsrType' value="{{index}}" range="{{array}}" bindchange="bindPickerChange" style="margin:20rpx">
+    <view class="picker">
+      当前选择：{{array[index]}}
+    </view>
+  </picker>
+  <input name='hm' type="idcard" placeholder="请输入身份证号码" style="margin:20rpx"/>
+  <view style="margin:20rpx">手机号码：{{sjhm}}</view>
+  <button form-type="submit" style="margin:20rpx">submit</button>
+  <button form-type="reset" style="margin:20rpx">reset</button>
+</form>

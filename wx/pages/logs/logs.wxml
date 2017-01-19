@@ -1,0 +1,5 @@
+<view class="btn-area" wx:for="{{sz}}">
+  <text>{{item.val}}</text>
+  <button bindtap="upload" size="mini" type="primary" id="{{item.key}}">{{item.key}}</button>
+</view>
+<button bindtap="getup">111</button>
