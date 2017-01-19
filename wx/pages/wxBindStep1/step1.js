@@ -8,8 +8,8 @@ Page({
   },
   onLoad: function(option){
     this.setData({
-      nsrsbh : '120103103064277',
-      nsrmc : '有色金属'
+      nsrsbh : option.nsrsbh,
+      nsrmc : option.nsrmc
     })
   },
   formSubmit:function(e){

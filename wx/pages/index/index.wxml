@@ -1,6 +1,6 @@
 <view class="btn-area">
-  <button bindtap="scan" size="default" type="primary" >扫一扫</button>
-  <button bindtap="bind" size="default" type="primary">微信绑定</button>
+  <button bindtap="scan" size="default" type="primary" >涉税事项影像采集</button>
+  <button bindtap="bind" size="default" type="primary">用户认证</button>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <switch type="switch" name="switch"/>success
     <button form-type="submit">submit</button>
