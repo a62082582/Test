@@ -44,7 +44,7 @@ public class WechatLaTestController {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("code", code);
-		map.put("openid", "");
+		map.put("openid", "fjdasjdsajlgjlgj");
 		return map;
 	}
 	
