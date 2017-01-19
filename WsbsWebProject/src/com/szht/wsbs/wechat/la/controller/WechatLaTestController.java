@@ -174,11 +174,12 @@ public class WechatLaTestController {
 		map.put("openid", "123456");
 		map.put("openidType", "1");
 		map.put("nsrsbh", nsrsbh);
-		map.put("nick", "test_nickname");
-		map.put("sjhm", "13012345678");
-		map.put("nsrType", "0");
-		map.put("sfzhm", "120101190001011234");
-		map.put("nsrmc", "test_nsrmc");
+		map.put("nsrmc", "有色金属企业");
+		map.put("sjhm", "12345678910");
+		map.put("sfzhm", "120103125964520012");
+		map.put("nick", "你猜我猜不猜");
+		map.put("nsrType", "3");
+		map.put("xm", "你猜我叫啥");
 		return map;
 	}
 	
