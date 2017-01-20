@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.szht.wsbs.wechat.la.util.Constants;
 import com.szht.wsbs.wechat.la.util.QRCode;
+import com.szht.wsbs.wechat.la.util.SignUtil;
 
 import net.sf.json.JSONObject;
 
@@ -52,7 +53,7 @@ public class WechatLaTestController {
 	 */
 	@RequestMapping("wsbsNsrxxDetailAction_getOpenId.do")
 	@ResponseBody
-	public Map<String, String> getOpenId(@RequestBody JSONObject requestJson) {
+	public Map<String, String> getSessionId(@RequestBody JSONObject requestJson) {
 		String code = requestJson.getString("code");
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -60,7 +61,7 @@ public class WechatLaTestController {
 		{
 			System.out.println(requestJson);
 			
-			String requestUrl = Constants.GET_OPENID_URL.replace("APPID", Constants.APPID)
+			String requestUrl = Constants.GET_SESSIONKEY_URL.replace("APPID", Constants.APPID)
 					.replace("APPSECRET" , Constants.SECRET).replace("CODE" , code);
 			HttpClient client = new DefaultHttpClient();
 			HttpGet get = new HttpGet(requestUrl);
@@ -75,6 +76,7 @@ public class WechatLaTestController {
 			
 			map.put("code", code);
 			map.put("openid", openid);
+			map.put("sessionKey", jsonObject.getString("session_key"));
 		}
 		catch (Exception e)
 		{
@@ -197,5 +199,32 @@ public class WechatLaTestController {
 		String url = "https://mp.weixin.qq.com/a/xioPF8PEVJ8qrYd093-U?v=2&nsrsbh="+nsrsbh+"&sessionId="+sessionid;
 		QRCode.getInstance().encodeImage(url, response.getOutputStream());
 		return null;
+	}
+	
+	
+	/**
+	 * 获取openid
+	 * @param requestJson
+	 * @return
+	 */
+	@RequestMapping("wsbsNsrxxDetailAction_decryptNsrxx.do")
+	@ResponseBody
+	public JSONObject decryptNsrxx(@RequestBody JSONObject requestJson) {
+		JSONObject jsonObject = new JSONObject(); 
+		
+		try {
+			String sessionKey = requestJson.getString("sessionKey");
+			String encryptedData = requestJson.getString("encryptedData");
+			String iv = requestJson.getString("iv");
+			
+			String deString = SignUtil.decrypt(encryptedData, sessionKey, iv);
+			
+			jsonObject = JSONObject.fromObject(deString); 
+			System.out.println(jsonObject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
+		
 	}
 }
