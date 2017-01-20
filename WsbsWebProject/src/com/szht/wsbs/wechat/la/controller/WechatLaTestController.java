@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.szht.wsbs.wechat.la.util.Constants;
+import com.szht.wsbs.wechat.la.util.QRCode;
 
 import net.sf.json.JSONObject;
 
@@ -187,5 +189,13 @@ public class WechatLaTestController {
 	@ResponseBody
 	public void test() {
 		System.out.println("test");
+	}
+	
+	@RequestMapping("nsrxxQRcode.do")
+	@ResponseBody
+	public String nsrxxQRcode(String nsrsbh, String sessionid, HttpServletResponse response)throws Exception{
+		String url = "https://mp.weixin.qq.com/a/xioPF8PEVJ8qrYd093-U?v=2&nsrsbh="+nsrsbh+"&sessionId="+sessionid;
+		QRCode.getInstance().encodeImage(url, response.getOutputStream());
+		return null;
 	}
 }
