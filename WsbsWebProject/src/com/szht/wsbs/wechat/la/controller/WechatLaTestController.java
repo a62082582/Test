@@ -41,7 +41,7 @@ public class WechatLaTestController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("nsrsbh", nsrsbh);
 		map.put("nsrmc", "测试名称");
-		map.put("step", "0");
+		map.put("step", "2");
 		map.put("code", "00");
 		return map;
 	}

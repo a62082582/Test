@@ -11,7 +11,7 @@
 		document.getElementById("imgEwm").src 
 			= baseurl + "/nsrxxQRcode.do?nsrsbh=" 
 					+ document.getElementById("nsrsbh").value 
-					+ "&sessionid" + document.getElementById("sessionid").value ;
+					+ "&sessionid=" + document.getElementById("sessionid").value ;
 	}
 </script>
 </head>
