@@ -180,7 +180,7 @@ public class WechatLaTestController {
 		map.put("sjhm", "12345678910");
 		map.put("sfzhm", "120103125964520012");
 		map.put("nick", "你猜我猜不猜");
-		map.put("nsrType", "3");
+		map.put("nsrType", "2");
 		map.put("xm", "你猜我叫啥");
 		return map;
 	}
