@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
@@ -11,7 +12,11 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.lang.StringUtils;
 
+import jp.sourceforge.qrcode.QRCodeDecoder;
 import jp.sourceforge.qrcode.QRCodeEncoder;
+import jp.sourceforge.qrcode.util.ContentConverter;
+import jp.sourceforge.util.J2SEImage;
+import sun.awt.image.codec.JPEGImageDecoderImpl;
 
 /**
  * <p>二维码编码解码工具 </p>
@@ -230,43 +235,43 @@ public class QRCode {
 		encodeImage(str, Color.WHITE, Color.BLACK, imageFilePath, false);
 	}
 	
-//	/**
-//	 * 
-//	 * <p>解码图像  <font color="red">注：只能解码JPEG图像</font> </p>
-//	 *
-//	 * @param imageFile 图像文件
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String decodeImage(File imageFile) throws Exception{
-//		if (imageFile == null){
-//			throw new NullPointerException("未指定待解码文件！");
-//		}
-//		QRCodeDecoder decoder = new QRCodeDecoder();
-//		FileInputStream fis = new FileInputStream(imageFile);
-//		JPEGImageDecoderImpl decode = new JPEGImageDecoderImpl(fis);
-//		BufferedImage image1 = decode.decodeAsBufferedImage();
-//		String decodedString = new String(decoder.decode(new J2SEImage(image1)), "ISO-8859-1");
-//		decodedString = ContentConverter.convert(decodedString);
-//		return decodedString;
-//	}
-//	
-//	/**
-//	 * 
-//	 * <p>解码图像  <font color="red">注：只能解码JPEG图像</font> </p>
-//	 *
-//	 * @param imageFilePath 图像文件路径
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String decodeImage(String imageFilePath) throws Exception{
-//		if (StringUtils.isEmpty(imageFilePath)){
-//			throw new NullPointerException("未指定待解码文件路径！");
-//		}
-//		File imageFile = new File(imageFilePath);
-//		if(!imageFile.exists() || imageFile.isDirectory()){
-//			throw new Exception("请指定正确的文件！");
-//		}
-//		return decodeImage(imageFile);
-//	}
+	/**
+	 * 
+	 * <p>解码图像  <font color="red">注：只能解码JPEG图像</font> </p>
+	 *
+	 * @param imageFile 图像文件
+	 * @return
+	 * @throws Exception
+	 */
+	public String decodeImage(File imageFile) throws Exception{
+		if (imageFile == null){
+			throw new NullPointerException("未指定待解码文件！");
+		}
+		QRCodeDecoder decoder = new QRCodeDecoder();
+		FileInputStream fis = new FileInputStream(imageFile);
+		JPEGImageDecoderImpl decode = new JPEGImageDecoderImpl(fis);
+		BufferedImage image1 = decode.decodeAsBufferedImage();
+		String decodedString = new String(decoder.decode(new J2SEImage(image1)), "ISO-8859-1");
+		decodedString = ContentConverter.convert(decodedString);
+		return decodedString;
+	}
+	
+	/**
+	 * 
+	 * <p>解码图像  <font color="red">注：只能解码JPEG图像</font> </p>
+	 *
+	 * @param imageFilePath 图像文件路径
+	 * @return
+	 * @throws Exception
+	 */
+	public String decodeImage(String imageFilePath) throws Exception{
+		if (StringUtils.isEmpty(imageFilePath)){
+			throw new NullPointerException("未指定待解码文件路径！");
+		}
+		File imageFile = new File(imageFilePath);
+		if(!imageFile.exists() || imageFile.isDirectory()){
+			throw new Exception("请指定正确的文件！");
+		}
+		return decodeImage(imageFile);
+	}
 }

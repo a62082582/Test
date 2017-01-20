@@ -19,7 +19,7 @@ public class Constants {
 	/**
 	 * 获取openId
 	 */
-	public static String GET_OPENID_URL = 
+	public static String GET_SESSIONKEY_URL = 
 			"https://api.weixin.qq.com/sns/jscode2session?appid=APPID" 
             + "&secret=APPSECRET&js_code=CODE&grant_type=authorization_code";
 	
