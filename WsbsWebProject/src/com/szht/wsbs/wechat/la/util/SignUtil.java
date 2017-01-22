@@ -28,7 +28,7 @@ public class SignUtil {
 	    { 
 	    	try 
 	    	{ 
-	    		Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding"); 
+	    		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding"); 
 	    		BASE64Decoder base64Decoder = new BASE64Decoder(); 
 	    		byte[] _encryptedData = base64Decoder.decodeBuffer(encryptedData); 
 	    		byte[] _sessionKey = base64Decoder.decodeBuffer(sessionKey); 
@@ -37,8 +37,9 @@ public class SignUtil {
 	    		IvParameterSpec ivParameterSpec = new IvParameterSpec(_iv); 
 	    		cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec); 
 	    		byte[] original = cipher.doFinal(_encryptedData); 
-	    		byte[] bytes = PKCS7Encoder.decode(original); 
-	    		String originalString = new String(bytes, "UTF-8"); 
+//	    		byte[] bytes = PKCS7Encoder.decode(original); 
+	    		String originalString = new String(original, "UTF-8");
+	    		System.out.println(originalString);
 	    		return originalString; 
 	    	} 
 	    	catch (Exception ex) 
