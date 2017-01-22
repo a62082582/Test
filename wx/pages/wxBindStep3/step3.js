@@ -1,20 +1,19 @@
 Page({
   data: {
+    //用来存储纳税人选择或者拍摄的照片数组
     imagePath:[]
   },
   onLoad: function(option){
     this.setData({
-      nsrsbh : option.nsrsbh,
-      openid : option.openid
+      nsrsbh : option.nsrsbh
     })
-    // console.log(this.data.sz)
   },
   scan:function(key){
     var that = this
     wx.chooseImage({
-      count: 1,
-      sizeType:['compressed'],
-      sourceType: ['album', 'camera'],
+      count: 1,  //只能选择1张照片
+      sizeType:['compressed'],   //压缩品质
+      sourceType: ['album', 'camera'],   //获取方式为从相册选择或拍照
       success: function(res) {
         var tempFilePaths = res.tempFilePaths
         
@@ -25,6 +24,7 @@ Page({
         //     var savedFilePath = res.savedFilePath
         //   }
         // })
+        //将选择的照片存储全局变量用于显示
         that.setData({
             imagePath: tempFilePaths
         })
@@ -32,30 +32,31 @@ Page({
     })
     
   },
+  
   upload : function(){
     var that = this
+    //调用上传方法上传纳税人身份证
     wx.uploadFile({
-      url: 'http://192.168.0.106:8080/weixinMVC/test/saveNsrxxSfz.do',
-      // url: 'http://192.168.31.204:8080/weixinMVC/uploadPic.do',
-      //url: 'http://o163w39369.51mypc.cn/weixinMVC/uploadPic.do',
-      //url: 'http://2406da5b.nat123.cc/weixinMVC/uploadPic.do', //上传路径
+      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_saveNsrxxSfz.do',
       filePath: that.data.imagePath[0],
       name: 'sfzfile',
       formData:{
-        openid : that.data.openid,
+        openid : wx.getStorageSync('openId'),
         nsrsbh : that.data.nsrsbh,
-        openidType : '1'
+        openidType : '1',
+        unionid : ''
       },
       success: function(res){
         var data = res.data
-        //do something
-      },
-      fail: function(res) {
         wx.showToast({
           title: '上传成功',
           icon: 'success',
           duration: 4000
         })
+        //do something
+      },
+      fail: function(res) {
+        
       }
       
     })

@@ -1,37 +1,54 @@
 //app.js
 App({
-  openid:'',
   onLaunch: function () {
-    //调用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    wx.login({
-      success: function(res) {
-        if (res.code) {
-          //发起网络请求
-          // console.log('111' + res.code)
-          this.openid = res.code
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
-        }
-      }
-    });
-  },
-  getUserInfo:function(cb){
-    var that = this
-    if(this.globalData.userInfo){
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
-      //调用登录接口
+    //调用API从本地缓存中获取数据  
+    var openId = wx.getStorageSync('openId')
+    if(openId == ''){
       wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
+        success: function(res) {
+          if (res.code) {
+            var code = res.code
+            wx.getUserInfo({
+              success: function(res) {
+                var a = res
+                var userInfo = a.userInfo
+                wx.request({
+                  url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_getOpenId.do', //仅为示例，并非真实的接口地址
+                  data: {
+                    code:code
+                  },
+                  header: {
+                      'content-type': 'application/json'
+                  },
+                  method : 'POST',
+                  success: function(result) {
+                    console.log(result)
+                    wx.request({
+                      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_decryptNsrxx.do', //仅为示例，并非真实的接口地址
+                      data: {
+                        encryptedData:a.encryptedData,
+                        sessionKey:result.data.sessionKey,
+                        iv : a.iv
+                      },
+                      header: {
+                          'content-type': 'application/json'
+                      },
+                      method : 'POST',
+                      success: function(res) {
+                        // console.log(res.data)
+                        var temp = res.data
+                        wx.setStorageSync('nickName', temp.nickName)
+                        wx.setStorageSync('openId', temp.openId) 
+                        wx.setStorageSync('timestamp', temp.watermark.timestamp)
+                      }
+                    }) 
+                  }
+                })
+              }
+            })
+          } else {
+            console.log('获取用户登录态失败！' + res.errMsg)
+          }
         }
       })
     }

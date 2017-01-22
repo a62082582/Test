@@ -5,7 +5,8 @@
     "pages/wxBindStep1/step1",
     "pages/wxBindStep2/step2",
     "pages/wxBindStep3/step3",
-    "pages/nsrInfoShow/show"
+    "pages/nsrInfoShow/show",
+    "pages/ItemList/ItemList"
   ],
   "window":{
     "backgroundTextStyle":"light",

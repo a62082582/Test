@@ -1,4 +1,4 @@
 <button bindtap="scan">选择图片</button>
 <image src="{{imagePath[0]}}"></image>
 <button bindtap="upload">上传</button>
-<button bindtap="returnTop">返回首页</button>
+<!--<button bindtap="returnTop">返回首页</button>-->

@@ -1,0 +1,10 @@
+<view  style="margin:20rpx">纳税人识别号：{{nsrsbh}}</view>
+<view  style="margin:20rpx">纳税人名称：{{nsrmc}}</view>
+<view  style="margin:20rpx">姓名：{{xm}}</view>
+<view  style="margin:20rpx">纳税人类型：{{array[nsrType]}}</view>
+<view  style="margin:20rpx">微信昵称：{{nick}}</view>
+<view  style="margin:20rpx">手机号码：{{sjhm}}</view>
+<view  style="margin:20rpx">身份证号码：{{sfzhm}}</view>
+<!--<button bindtap="disBind" style="margin:20rpx">解除绑定</button>-->
+
+

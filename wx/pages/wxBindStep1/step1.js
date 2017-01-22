@@ -15,24 +15,27 @@ Page({
   formSubmit:function(e){
     var info = e.detail.value
     var that = this
+    //调用后台校验短信方法
     wx.request({
-      url: 'http://192.168.0.106:8080/weixinMVC/test/checkDx.do', //仅为示例，并非真实的接口地址
-      // url: 'http://127.0.0.1:8080/weixinMVC/test/checkDx.do', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkDx.do',
       data: {
         yzm : info.yzm,
-        nsrsbh : this.data.nsrsbh
+        nsrsbh : this.data.nsrsbh,
+        sjhm : info.sjhm
       },
       header: {
           'content-type': 'application/json'
       },
-      //method : 'POST',
+      method : 'POST',
       success: function(res) {
         var result = res.data
         if(result.code == '00'){
+          //如果成功则跳转第二步同时传参
           wx.redirectTo({
             url: '../wxBindStep2/step2?nsrsbh='+that.data.nsrsbh+'&sjhm='+info.sjhm+'&nsrmc='+that.data.nsrmc
           })
         }else{
+          //如果失败则弹出消息提示
           wx.showToast({
             title: '验证码不正确',
             icon: 'success',
