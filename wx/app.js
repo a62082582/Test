@@ -40,6 +40,7 @@ App({
                         wx.setStorageSync('nickName', temp.nickName)
                         wx.setStorageSync('openId', temp.openId) 
                         wx.setStorageSync('timestamp', temp.watermark.timestamp)
+                        wx.setStorageSync('avatarUrl', temp.avatarUrl)
                       }
                     }) 
                   }

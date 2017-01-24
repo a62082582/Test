@@ -9,3 +9,9 @@
 button {
   margin: 20rpx;
 }
+.phone{
+  width: 250rpx;
+}
+.block{
+  display: inline-block;
+}

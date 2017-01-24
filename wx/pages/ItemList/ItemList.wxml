@@ -1,16 +1,19 @@
-<block wx:if="{{scanCheck=='true'}}">
-<view>请您在网上办税中扫二维码</view>
-<button bindtap="bind" style="margin:20rpx" >扫一扫</button>
-</block>
-<block wx:if="{{listCheck=='true'}}">
-<view  style="margin:20rpx">纳税人识别号：{{info.nsrsbh}}</view>
-<view  style="margin:20rpx">纳税人名称：{{info.nsrmc}}</view>
-<view  style="margin:20rpx">姓名：{{info.xm}}</view>
-<view  style="margin:20rpx">纳税人类型：{{array[info.nsrType]}}</view>
-<view  style="margin:20rpx">微信昵称：{{info.nick}}</view>
-<view  style="margin:20rpx">手机号码：{{info.sjhm}}</view>
-<view  style="margin:20rpx">身份证号码：{{info.sfzhm}}</view>
-</block>
+
+<!--<block wx:if="{{scanCheck=='true'}}">-->
+
+<!--<view>请您在网上办税中扫二维码</view>-->
+<view class="userinfo">
+  <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
+  <text class="userinfo-nickname">{{nickName}}</text>
+</view>
+<view class="button-group">
+<view class="button-top" wx:if="{{bindCheck=='true'}}">
+<button bindtap="bind" type="primary">绑定企业</button>
+<view style="text-align:center;font-size:13px;margin-top:15rpx">请进入网上办税相关功能扫描纳税人二维码</view>
+</view>
+<button bindtap="yhxx" class="button-top" type="primary">用户信息</button>
+<button bindtap="yxcj" class="button-top" type="primary">影像采集</button>
+</view>
+<!--</block>-->
+
 <!--<button bindtap="disBind" style="margin:20rpx">解除绑定</button>-->
-
-

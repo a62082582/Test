@@ -1,8 +1,12 @@
 <form bindsubmit="formSubmit">
-  <view>手机号码:</view>
-  <input type="number" placeholder="请输入手机号" name="sjhm"/>
-  <view>请输入手机验证码:</view>
-  <input type="number" placeholder="请输入手机验证码" name="yzm"/>
+  <view class="block">
+    <view class="phone">手机号码:</view>
+    <input type="number" placeholder="请输入手机号" name="sjhm"/>
+  </view>
+  <view class="block">
+    <view class="phone">验证码:</view>
+    <input type="number" placeholder="请输入手机验证码" name="yzm"/>
+  </view>
   <button bindtap="resend" disabled="{{buttonDisable}}">{{buttonValue}}</button>
-  <button form-type="submit">submit</button>
+  <button form-type="submit">验证</button>
 </form>

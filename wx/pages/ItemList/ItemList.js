@@ -1,17 +1,14 @@
 Page({
   data: {
-    array:['法定代表人','财务负责人','购票人','办税人'],
-    scanCheck : 'false',
-    listCheck : 'false',
-    step : '0'
+    avatarUrl : wx.getStorageSync('avatarUrl'),
+    nickName : wx.getStorageSync('nickName')
   },
   onLoad: function(option){
     //将传来的数据存入全局变量中
     this.setData({
-      scanCheck : option.scanCheck,
-      listCheck : option.listCheck,
-      step : option.step,
-      info : wx.getStorageSync('info')
+      bindCheck : option.bindCheck,
+      info : wx.getStorageSync('info'),
+      sjhm : option.sjhm
     })
   },
   bind:function(e){
@@ -55,22 +52,10 @@ Page({
             var temp = res.data
             //如果返回结果成功时
             if(temp.code == '00'){
-              //如果step为1时跳转第一步
-              if(that.data.step == '1'){
-                wx.redirectTo({
-                  url: '../wxBindStep1/step1?nsrsbh='+temp.nsrsbh+'&nsrmc='+temp.nsrmc
-                })
-                //如果step为2时跳转第二步
-              }else if(that.data.step == '2'){
-                wx.redirectTo({
-                  url: '../wxBindStep2/step2?nsrsbh='+temp.nsrsbh+'&nsrmc='+temp.nsrmc
-                })
-                //如果step为3时跳转第三步
-              }else if(that.data.step == '3'){
-                wx.redirectTo({
-                  url: '../wxBindStep3/step3?nsrsbh='+temp.nsrsbh
-                })
-              }
+              //跳转至第二步
+              wx.navigateTo({
+                url: '../wxBindStep2/step2?nsrsbh='+temp.nsrsbh+'&nsrmc='+temp.nsrmc+'&sjhm='+that.data.sjhm
+              })
             }else{
               //返回结果为失败时显示消息
               wx.showToast({
@@ -79,9 +64,26 @@ Page({
                 duration: 4000
               })
             }
+          },
+          fail:function(e){
+            wx.showToast({
+              title: '网络异常',
+              icon: 'success',
+              duration: 4000
+            })
           }
         })
       }
+    })
+  },
+  yhxx : function(e){
+    wx.navigateTo({
+      url: '../nsrInfoShow/show?nsrsbh='+this.data.info.nsrsbh
+    })
+  },
+  yxcj : function(e){
+    wx.navigateTo({
+      url: '../wxBindStep3/step3?nsrsbh='+this.data.info.nsrsbh
     })
   }
 })

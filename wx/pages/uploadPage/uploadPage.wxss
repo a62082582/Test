@@ -6,3 +6,10 @@
 button {
   margin: 10rpx;
 }
+.zlShow{
+  display: inline-block;
+  text-align: center;
+}
+.uploadButton{
+  float: right;
+}
