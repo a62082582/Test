@@ -1,3 +1,6 @@
+const getOpenIdUrl = require('/config').getOpenIdUrl
+const decryptNsrxxUrl = require('/config').decryptNsrxxUrl
+
 //app.js
 App({
   onLaunch: function () {
@@ -13,7 +16,7 @@ App({
                 var a = res
                 var userInfo = a.userInfo
                 wx.request({
-                  url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_getOpenId.do', //仅为示例，并非真实的接口地址
+                  url: getOpenIdUrl, 
                   data: {
                     code:code
                   },
@@ -22,9 +25,9 @@ App({
                   },
                   method : 'POST',
                   success: function(result) {
-                    console.log(result)
+                    // console.log(result)
                     wx.request({
-                      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_decryptNsrxx.do', //仅为示例，并非真实的接口地址
+                      url: decryptNsrxxUrl, 
                       data: {
                         encryptedData:a.encryptedData,
                         sessionKey:result.data.sessionKey,

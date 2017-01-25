@@ -1,3 +1,6 @@
+const getFszlUrl = require('../../config').getFszlUrl
+const saveFszlUrl = require('../../config').saveFszlUrl
+
 Page({
   data: {
     sz:[]
@@ -11,7 +14,7 @@ Page({
     })
     //调用获取附送资料方法
     wx.request({
-      url: 'http://192.168.0.106:8080/WsbsWebProject/wxFszlAction_getFszl.do', 
+      url: getFszlUrl, 
       data: {
         nsrsbh: option.nsrsbh ,
         applicationid: option.applicationid,
@@ -72,7 +75,7 @@ Page({
         //调用获取处理方式函数
         var clfs = getClfs(that,key.target.id,tempFilePaths[0])
         wx.uploadFile({
-          url: 'http://192.168.0.106:8080/WsbsWebProject/wxFszlAction_saveFszl.do',
+          url: saveFszlUrl,
           filePath: tempFilePaths[0],
           name: 'zlFile',
           formData:{

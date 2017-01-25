@@ -1,3 +1,5 @@
+const checkDxUrl = require('../../config').checkDxUrl
+
 Page({
   data: {
    sjhm:'',
@@ -26,7 +28,7 @@ Page({
     var that = this
     //调用后台校验短信方法
     wx.request({
-      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkDx.do',
+      url: checkDxUrl,
       data: {
         yzm : info.yzm,
         nsrsbh : this.data.nsrsbh,

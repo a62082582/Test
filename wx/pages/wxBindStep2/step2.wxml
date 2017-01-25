@@ -11,6 +11,6 @@
     <input name='hm' type="idcard" placeholder="请输入身份证号码" style="margin:20rpx"/>
     <view style="margin:20rpx">手机号码：{{sjhm}}</view>
     <button form-type="reset" style="margin:20rpx">重置</button>
-    <button form-type="submit" style="margin:20rpx">下一步</button>
+    <button form-type="submit" style="margin:20rpx" type="primary">下一步</button>
   </form>
 </block>

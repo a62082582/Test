@@ -1,3 +1,6 @@
+const checkCodeUrl = require('../../config').checkCodeUrl
+const checkOpenidUrl = require('../../config').checkOpenidUrl
+
 Page({
   data: {
     
@@ -12,7 +15,7 @@ Page({
     if(option.nsrsbh != undefined && option.sessionId != undefined && option.time != undefined && option.applicationid != undefined){
       //从外部进入首先先校验openid
       wx.request({
-        url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkOpenid.do',
+        url: checkOpenidUrl,
         data: {
           openid : that.data.openId,
           unionid : '',
@@ -49,7 +52,7 @@ Page({
     else if(option.nsrsbh != undefined && option.sessionId != undefined && option.time != undefined){
       //从外部进入首先先校验openid
       wx.request({
-        url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkOpenid.do',
+        url: checkOpenidUrl,
         data: {
           openid : that.data.openId,
           unionid : '',
@@ -69,7 +72,7 @@ Page({
           }else if(result.resultCode == '1'){
             //如果返回结果是1，即纳税人关联过但未上传身份证，跳转页面至上传身份证信息页面
             wx.navigateTo({
-              url: '../wxBindStep3/step3?nsrsbh='+result.nsrsbh
+              url: '../wxBindStep3/step3?nsrsbh='+result.nsrsbh+'&bz=Y'
             })
           }else if(result.resultCode == '2'){
             //如果返回结果是2，即纳税人只绑定过手机，跳转页面第二步
@@ -77,9 +80,9 @@ Page({
               url: '../wxBindStep2/step2?nsrsbh='+result.nsrsbh+'&nsrmc='+result.nsrmc+'&sjhm='+result.sjhm+'&outCheck=true&sessionId='+option.sessionId+'&time='+option.time
             })
           }else if(result.resultCode == '3'){
-            //如果返回结果是3，即纳税人绑定完成，跳转页面将扫一扫开关设置为false,step设置为0（不起作用）,信息列表开关设置为true
+            //如果返回结果是3，跳转到纳税人信息显示页面
             wx.navigateTo({
-              url: '../ItemList/ItemList?listCheck=true&scanCheck=false&step=0'
+              url: '../nsrInfoShow/show?nsrsbh='+result.nsrsbh
             })
           }
         }
@@ -91,7 +94,7 @@ Page({
     var that = this
     //调用后台方法校验openId
     wx.request({
-      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkOpenid.do',
+      url: checkOpenidUrl,
       data: {
         openid : that.data.openId,
         unionid : '',
@@ -118,7 +121,7 @@ Page({
         }else if(result.resultCode == '2'){
           //如果返回结果是2，即纳税人只绑定过手机，跳转页面将扫一扫开关设置为true,step设置为2,信息列表开关设置为false
           wx.navigateTo({
-            url: '../ItemList/ItemList?bindCheck=false'
+            url: '../ItemList/ItemList?bindCheck=true'
           })
         }else if(result.resultCode == '3'){
           //如果返回结果是3，即纳税人绑定完成，跳转页面将扫一扫开关设置为false,step设置为0（不起作用）,信息列表开关设置为true
@@ -141,7 +144,7 @@ Page({
     var that = this
     //首先判断openid
     wx.request({
-      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkOpenid.do',
+      url: checkOpenidUrl,
       data: {
         openid : that.data.openId,
         unionid : '',
@@ -177,7 +180,7 @@ Page({
               var time = 'time'
               var applicationid = 'applicationid'
               wx.request({
-                url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkCode.do', 
+                url: checkCodeUrl, 
                 data: {
                   nsrsbh: nsrsbh ,
                   seesionId: sessionId,

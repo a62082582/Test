@@ -1,3 +1,5 @@
+const checkCodeUrl = require('../../config').checkCodeUrl
+
 Page({
   data: {
     avatarUrl : wx.getStorageSync('avatarUrl'),
@@ -6,9 +8,26 @@ Page({
   onLoad: function(option){
     //将传来的数据存入全局变量中
     this.setData({
-      bindCheck : option.bindCheck,
       info : wx.getStorageSync('info'),
-      sjhm : option.sjhm
+      sjhm : option.sjhm,
+      bindCheck : option.bindCheck
+    })
+  },
+  onShow:function(){
+    var backFlag = wx.getStorageSync('backFlag') 
+    if(backFlag != ''){
+      wx.removeStorageSync('backFlag')
+    }
+    var _bindCheck = this.data.bindCheck
+    if(backFlag){
+      if(_bindCheck == 'true'){
+        _bindCheck = 'false'
+      }else{
+        _bindCheck = 'true'
+      }
+    }
+    this.setData({
+      bindCheck : _bindCheck
     })
   },
   bind:function(e){
@@ -38,7 +57,7 @@ Page({
         var time = '20170117152542'
         //使用扫码获得的值校验传到后台校验二维码
         wx.request({
-          url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkCode.do', 
+          url: checkCodeUrl, 
           data: {
             nsrsbh: nsrsbh,
             sessionId: sessionId,
@@ -76,14 +95,16 @@ Page({
       }
     })
   },
+  //用户信息
   yhxx : function(e){
     wx.navigateTo({
       url: '../nsrInfoShow/show?nsrsbh='+this.data.info.nsrsbh
     })
   },
+  //影像上传
   yxcj : function(e){
     wx.navigateTo({
-      url: '../wxBindStep3/step3?nsrsbh='+this.data.info.nsrsbh
+      url: '../wxBindStep3/step3?nsrsbh='+this.data.info.nsrsbh+'&bz=Y'
     })
   }
 })

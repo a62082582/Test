@@ -1,5 +1,5 @@
 <image src="{{imagePathZm[0]}}"></image>
-<button bindtap="scanZm">上传身份证正面照片</button>
+<button bindtap="scanZm" type="primary">上传身份证正面照片</button>
 <image src="{{imagePathFm[0]}}"></image>
-<button bindtap="scanFm">上传身份证背面照片</button>
-<button bindtap="returnTop">返回首页</button>
+<button bindtap="scanFm" type="primary">上传身份证背面照片</button>
+<!--<button bindtap="returnTop">返回首页</button>-->

@@ -1,3 +1,5 @@
+const viewBindNsrxxUrl = require('../../config').viewBindNsrxxUrl
+
 Page({
   data: {
     array:['法定代表人','财务负责人','购票人','办税人']
@@ -5,7 +7,7 @@ Page({
   onLoad: function(option){
     var that = this
     wx.request({
-      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_viewBindNsrxx.do', //仅为示例，并非真实的接口地址
+      url: viewBindNsrxxUrl, //仅为示例，并非真实的接口地址
       data: {
         nsrsbh: option.nsrsbh,
         openid: wx.getStorageSync('openId')

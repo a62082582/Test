@@ -7,6 +7,6 @@
     <view class="phone">验证码:</view>
     <input type="number" placeholder="请输入手机验证码" name="yzm"/>
   </view>
-  <button bindtap="resend" disabled="{{buttonDisable}}">{{buttonValue}}</button>
-  <button form-type="submit">验证</button>
+  <button bindtap="resend" disabled="{{buttonDisable}}" type="primary">{{buttonValue}}</button>
+  <button form-type="submit" type="primary">验证</button>
 </form>

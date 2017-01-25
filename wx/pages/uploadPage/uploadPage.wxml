@@ -1,5 +1,5 @@
 <scroll-view scroll-y="true" style="height: 50%;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-<view>纳税人名称  《{{nsrmc}}》</view>
+<view>纳税人名称  {{nsrmc}}</view>
 <view>事项名称《{{zlInfo.businessmc}}》</view>
 <view class="btn-area" wx:for="{{zlInfo.zllist}}" style="line-weight:2px;margin:10px 0px">
   <view>资料{{index+1}}：{{item.mc}}</view>
@@ -11,4 +11,4 @@
   <!--<image src="{{item.picture}}" wx:if="{{item.show==true}}"></image>-->
 </view>
 </scroll-view>
-<button bindtap="getup">111</button>
+<!--<button bindtap="getup">111</button>-->

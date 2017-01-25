@@ -7,13 +7,16 @@
   <text class="userinfo-nickname">{{nickName}}</text>
 </view>
 <view class="button-group">
-<view class="button-top" wx:if="{{bindCheck=='true'}}">
-<button bindtap="bind" type="primary">绑定企业</button>
-<view style="text-align:center;font-size:13px;margin-top:15rpx">请进入网上办税相关功能扫描纳税人二维码</view>
+  <view class="button-top" wx:if="{{bindCheck=='true'}}">
+    <button bindtap="bind" type="primary">绑定企业</button>
+    <view style="text-align:center;font-size:13px;margin-top:15rpx">请进入网上办税相关功能扫描纳税人二维码</view>
+  </view>
+  <view wx:else>
+    <button bindtap="yhxx" class="button-top" type="primary">用户信息</button>
+    <button bindtap="yxcj" class="button-top" type="primary">影像采集</button>
+  </view>
 </view>
-<button bindtap="yhxx" class="button-top" type="primary">用户信息</button>
-<button bindtap="yxcj" class="button-top" type="primary">影像采集</button>
-</view>
+
 <!--</block>-->
 
 <!--<button bindtap="disBind" style="margin:20rpx">解除绑定</button>-->

@@ -1,3 +1,7 @@
+const checkCodeUrl = require('../../config').checkCodeUrl
+const bindNsrxxAndWxUrl = require('../../config').bindNsrxxAndWxUrl
+const checkNsrxxUrl = require('../../config').checkNsrxxUrl
+
 Page({
   data: {
     //4个纳税人类型数组
@@ -24,7 +28,7 @@ Page({
     if(option.outCheck == 'true'){
       //如果从外部进入，首先调用校验二维码方法
       wx.request({
-        url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkCode.do', 
+        url: checkCodeUrl, 
         data: {
           nsrsbh: option.nsrsbh,
           sessionId: option.sessionId,
@@ -72,7 +76,7 @@ Page({
     var that = this
     //首先通过填写的参数调用后台校验纳税人方法
     wx.request({
-      url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_checkNsrxx.do', 
+      url: checkNsrxxUrl, 
       data: {
         nsrsbh : that.data.nsrsbh,
         nsrType : info.nsrType,
@@ -91,7 +95,7 @@ Page({
         if(temp.code == '00'){   
           //调用后台绑定纳税人与微信号的方法 
           wx.request({
-            url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_bindNsrxxAndWx.do', 
+            url: bindNsrxxAndWxUrl, 
             data: {
               xm : info.xm,
               sfzhm : info.hm,

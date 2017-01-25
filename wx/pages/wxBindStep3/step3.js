@@ -1,3 +1,5 @@
+const saveNsrxxSfzUrl = require('../../config').saveNsrxxSfzUrl
+
 Page({
   data: {
     //用来存储纳税人选择或者拍摄的照片数组
@@ -5,8 +7,14 @@ Page({
   },
   onLoad: function(option){
     this.setData({
-      nsrsbh : option.nsrsbh
+      nsrsbh : option.nsrsbh,
+      bz : option.bz
     })
+  },
+  onUnload:function(){
+    if(this.data.bz != 'Y'){
+      wx.setStorageSync('backFlag', true)
+    }
   },
   scanFm:function(key){
     var that = this
@@ -21,7 +29,7 @@ Page({
             imagePathFm: tempFilePaths
         })
         wx.uploadFile({
-          url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_saveNsrxxSfz.do',
+          url: saveNsrxxSfzUrl,
           filePath: that.data.imagePathFm[0],
           name: 'sfzfile',
           formData:{
@@ -63,7 +71,7 @@ Page({
             imagePathZm: tempFilePaths
         })
         wx.uploadFile({
-          url: 'http://192.168.0.106:8080/WsbsWebProject/yspCustomerRegisteSmzAction_saveNsrxxSfz.do',
+          url: saveNsrxxSfzUrl,
           filePath: that.data.imagePathZm[0],
           name: 'sfzfile',
           formData:{
